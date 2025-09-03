@@ -138,7 +138,7 @@ func AddSubscription(DB *gorm.DB) gin.HandlerFunc {
 
 		response := models.ToSubscriptionResponse(newSub)
 
-		c.JSON(http.StatusOK, response)
+		c.JSON(http.StatusCreated, response)
 	}
 }
 
