@@ -14,9 +14,13 @@ localhost:3000
 Now you can use this API for create, read, delete and update subscriptions. 
 
 GET: Get list of subscription:   localhost:3000/subscriptions
+
 GET: Get subscription by id:   localhost:3000/subscribe/id
+
 POST: Add subscription:   localhost:3000/subscribe
+
 PUT: Update subscription:   localhost:3000/subscribe/id
+
 DELETE: Delete subscrition:   localhost:3000/subscribe/id
 
 You also can calculate a subscriptions cost with requests:
