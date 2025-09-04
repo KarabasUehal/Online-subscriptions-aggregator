@@ -105,7 +105,29 @@ func CalculateSubsPerPeriod(DB *gorm.DB) gin.HandlerFunc {
 			}
 
 			// Стоимость за все затронутые запросом дни подписки
+			//proportional := (overlapDays / totalDays) * float64(sub.Cost)
 			proportional := (overlapDays / totalDays) * float64(sub.Cost)
+
+			// Ниже проработал вариант для тех случаев, когда
+			// предпочтительно складывать стоимость только за полную месячную подписку
+			/*
+				overlapDays := overlapEnd.Sub(overlapStart).Hours() / 24
+				overlapMonths := int(overlapDays / 30)
+				totalDays := sub.EndDate.Sub(sub.StartDate).Hours() / 24
+				totalMonths := int(totalDays / 30)
+
+				if totalDays <= 0 {
+					continue // Невалидная длительность подписки
+				}
+
+				if overlapMonths < 1 {
+					continue //Не считаем стоимость, если месяц ещё не прошёл
+				}
+				// Стоимость за все затронутые запросом месяцы подписки
+				//proportional := (overlapDays / totalDays) * float64(sub.Cost)
+				proportional := (float64(sub.Cost) / float64(totalMonths)) * float64(overlapMonths)
+			*/
+
 			totalCost += proportional
 		}
 
