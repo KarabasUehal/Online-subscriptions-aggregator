@@ -13,7 +13,7 @@ localhost:3000
 
 Now you can use this API for create, read, delete and update subscriptions. 
 
-GET: Get list of subscription:   localhost:3000/subscriptions
+GET: Get list of subscriptions:   localhost:3000/subscriptions
 
 GET: Get subscription by id:   localhost:3000/subscribe/id
 

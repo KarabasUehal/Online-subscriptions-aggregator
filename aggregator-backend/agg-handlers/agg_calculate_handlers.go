@@ -84,9 +84,9 @@ func CalculateSubsPerPeriod(DB *gorm.DB) gin.HandlerFunc {
 		}
 
 		// Подсчитывание общей стоимости
-		totalCost := 0
+		totalCost := 0.0
 		for _, sub := range subs {
-			// Подсчёт периода
+			// затронутое введённым периодом время подписки
 			overlapStart := maxTime(startDate, sub.StartDate)
 			overlapEnd := minTime(endDate, sub.EndDate)
 
@@ -95,7 +95,8 @@ func CalculateSubsPerPeriod(DB *gorm.DB) gin.HandlerFunc {
 				continue
 			}
 
-			// Подсчёт длительности в днях (входящие данные выравнены по полуночи)
+			// Подсчёт затронутых запросом дней (входящие данные выровнены по полуночи)
+			// Подсчёт дней всей подписки
 			overlapDays := overlapEnd.Sub(overlapStart).Hours() / 24
 			totalDays := sub.EndDate.Sub(sub.StartDate).Hours() / 24
 
@@ -103,12 +104,12 @@ func CalculateSubsPerPeriod(DB *gorm.DB) gin.HandlerFunc {
 				continue // Невалидная длительность подписки
 			}
 
-			// Стоимость за все дни
-			proportional := (int(overlapDays) / int(totalDays)) * sub.Cost
+			// Стоимость за все затронутые запросом дни подписки
+			proportional := (overlapDays / totalDays) * float64(sub.Cost)
 			totalCost += proportional
 		}
 
-		c.JSON(http.StatusOK, gin.H{"total_cost": totalCost})
+		c.JSON(http.StatusOK, gin.H{"total_cost": int(totalCost)})
 
 	}
 }

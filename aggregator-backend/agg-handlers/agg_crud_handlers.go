@@ -31,9 +31,9 @@ func GetAllSubs(DB *gorm.DB) gin.HandlerFunc {
 			return
 		}
 
-		response := make([]models.SubscriptionResponse, len(subs))
+		response := make([]models.SubsResponse, len(subs))
 		for i, sub := range subs {
-			response[i] = models.ToSubscriptionResponse(sub)
+			response[i] = models.ToSubsResponse(sub)
 		} //Для вывода даты в формате YYYY-MM
 
 		c.JSON(http.StatusOK, response)
@@ -68,7 +68,7 @@ func GetSubsById(DB *gorm.DB) gin.HandlerFunc {
 			return
 		}
 
-		response := models.ToSubscriptionResponse(sub)
+		response := models.ToSubsResponse(sub)
 
 		c.JSON(http.StatusOK, response)
 	}
@@ -87,7 +87,7 @@ func GetSubsById(DB *gorm.DB) gin.HandlerFunc {
 // @Router /subscribe [post]
 func AddSubscription(DB *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var sub models.SubscriptionInput
+		var sub models.SubsInput
 
 		if err := c.ShouldBindJSON(&sub); err != nil {
 			log.Printf("Error to bind JSON:%v", err)
@@ -136,7 +136,7 @@ func AddSubscription(DB *gorm.DB) gin.HandlerFunc {
 			return
 		}
 
-		response := models.ToSubscriptionResponse(newSub)
+		response := models.ToSubsResponse(newSub)
 
 		c.JSON(http.StatusCreated, response)
 	}
@@ -157,7 +157,7 @@ func AddSubscription(DB *gorm.DB) gin.HandlerFunc {
 // @Router /subscribe/{id} [put]
 func UpdateSubscriptionById(DB *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var sub models.SubscriptionInput
+		var sub models.SubsInput
 		var old_sub models.UserSub
 
 		id, err := strconv.Atoi(c.Param("id"))
@@ -223,7 +223,7 @@ func UpdateSubscriptionById(DB *gorm.DB) gin.HandlerFunc {
 			resp.StartDate = startDate
 			resp.EndDate = endDate
 
-			response := models.ToSubscriptionResponse(resp) //Так же форматируем дату
+			response := models.ToSubsResponse(resp) //Так же форматируем дату
 			c.JSON(http.StatusCreated, response)
 			return
 		}
@@ -241,7 +241,7 @@ func UpdateSubscriptionById(DB *gorm.DB) gin.HandlerFunc {
 			return
 		}
 
-		response := models.ToSubscriptionResponse(old_sub)
+		response := models.ToSubsResponse(old_sub)
 
 		c.JSON(http.StatusOK, response)
 	}
