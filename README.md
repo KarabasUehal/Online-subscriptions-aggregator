@@ -27,6 +27,6 @@ http://localhost:3000/total-cost?start_date=2024-01&end_date=2025-11&user_id=d27
 
 http://localhost:3000/total-cost?start_date=2025-01&end_date=2025-11&service_name=SomeService - Calculate cost of subscriptions filtered by service_name (example start date, end date, service name)
 
-http://localhost:3000/total-cost?start_date=2024-01&end_date=2025-12&user_id=d27618cc-cdc1-466c-aebf-c9235f5ccb9c&service_name=SomeService - Calculate cost of subscriptions filtered by service_name and(example start date, end date, user id, service name)
+http://localhost:3000/total-cost?start_date=2024-01&end_date=2025-12&user_id=d27618cc-cdc1-466c-aebf-c9235f5ccb9c&service_name=SomeService - Calculate cost of subscriptions filtered by service_name and user id(example start date, end date, user id, service name)
 
 Thanks for reading!
